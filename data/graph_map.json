@@ -1,0 +1,22 @@
+{
+  "nodes": [
+    "clusterJ0_J16_J18",
+    "clusterJ11_J12_J4_J5",
+    "clusterJ13_J14_J18_J19",
+    "clusterJ13_J14_J2_J9",
+    "clusterJ21_J43_J44",
+    "clusterJ22_J24_J25"
+  ],
+  "edges": [
+    ["clusterJ11_J12_J4_J5", "clusterJ13_J14_J2_J9"],
+    ["clusterJ13_J14_J2_J9", "clusterJ11_J12_J4_J5"],
+    ["clusterJ11_J12_J4_J5", "clusterJ22_J24_J25"],
+    ["clusterJ22_J24_J25", "clusterJ11_J12_J4_J5"],
+    ["clusterJ22_J24_J25", "clusterJ13_J14_J18_J19"],
+    ["clusterJ13_J14_J18_J19", "clusterJ22_J24_J25"],
+    ["clusterJ0_J16_J18", "clusterJ21_J43_J44"],
+    ["clusterJ21_J43_J44", "clusterJ0_J16_J18"],
+    ["clusterJ0_J16_J18", "clusterJ13_J14_J18_J19"],
+    ["clusterJ13_J14_J18_J19", "clusterJ0_J16_J18"]
+  ]
+}

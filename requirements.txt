@@ -1,0 +1,17 @@
+# File: requirements.txt
+
+# Deep Learning
+torch
+torch_geometric  # Untuk GNN (PyG)
+
+# Reinforcement Learning
+ray[rllib]       # Framework MARL & Pelatihan
+gymnasium        # Standar lingkungan RL
+
+# Simulasi
+sumo-rl          # Menyediakan Traci & SUMO
+lxml
+
+# Utilitas
+numpy
+requests         # Untuk API Client
