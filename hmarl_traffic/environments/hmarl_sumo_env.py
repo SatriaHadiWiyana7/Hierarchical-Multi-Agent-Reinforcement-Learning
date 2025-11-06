@@ -5,11 +5,8 @@ import traci
 from ray.rllib.env.multi_agent_env import MultiAgentEnv
 import os
 import sys
-
-# Import konfigurasi terpusat
 from hmarl_traffic import config
 
-# Tentukan path ke SUMO_HOME jika belum ada di environment variables
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(tools)
@@ -19,15 +16,12 @@ else:
 
 class SumoTrafficEnv(MultiAgentEnv):
     """
-    Lingkungan Multi-Agent SUMO untuk RLlib (Tahap 1: Agent-Only).
-    
-    Ini adalah implementasi yang BENAR untuk MultiAgentEnv, 
-    di mana observation_space dan action_space adalah Dict.
+    Lingkungan Multi-Agent SUMO untuk RLlib Tahap 1: Agent-Only.
     """
     
     def __init__(self, config_dict=None):
         """
-        Inisialisasi lingkungan.
+        Inisialisasi lingkungan
         """
         super().__init__()
         env_config = config_dict or {}
@@ -44,13 +38,11 @@ class SumoTrafficEnv(MultiAgentEnv):
         self._agent_ids = set(self.agents)
         self.green_phase_maps = config.GREEN_PHASE_MAPS
         
-        # --- Definisi Space (Harus berupa Dict untuk MultiAgentEnv) ---
+        # --- Definisi Space ---
         
-        # 1. Tentukan 'space' untuk SATU agen
+        # Tentukan space untuk SATU agen
         single_agent_obs_space = Box(low=0, high=np.inf, shape=config.OBS_SHAPE, dtype=np.float32)
         single_agent_action_space = Discrete(config.ACTION_SIZE)
-
-        # 2. Buat Dict space yang memetakan setiap agen ke 'space'-nya
         self._obs_space_in_preferred_format = True
         self.observation_space = gym.spaces.Dict(
             {agent_id: single_agent_obs_space for agent_id in self.agents}
@@ -68,7 +60,7 @@ class SumoTrafficEnv(MultiAgentEnv):
         self.current_green_phases = {}
 
     def _start_sumo(self):
-        """Mulai instance simulasi SUMO dan hubungkan Traci."""
+        """Mulai instance simulasi SUMO dan hubungkan Traci"""
         sumo_cmd = [
             self.sumo_binary,
             "-c", self.sumo_config_file,
@@ -109,7 +101,7 @@ class SumoTrafficEnv(MultiAgentEnv):
         return obs, {}
 
     def step(self, action_dict):
-        """Terapkan aksi untuk setiap agen dan jalankan simulasi satu langkah."""
+        """Terapkan aksi untuk setiap agen dan jalankan simulasi"""
         self.episode_steps += 1
         
         for agent_id, action in action_dict.items():
@@ -138,7 +130,7 @@ class SumoTrafficEnv(MultiAgentEnv):
         return obs, rewards, terminateds, truncateds, {}
 
     def _get_obs(self):
-        """Mengumpulkan observasi untuk setiap agen."""
+        """Mengumpulkan observasi untuk setiap agen"""
         obs_dict = {}
         for agent_id in self.agents:
             lane_queues = []
@@ -158,7 +150,7 @@ class SumoTrafficEnv(MultiAgentEnv):
         return obs_dict
 
     def _get_reward(self):
-        """Menghitung ganjaran intrinsik untuk setiap agen."""
+        """Menghitung ganjaran intrinsik untuk setiap agen"""
         reward_dict = {}
         for agent_id in self.agents:
             if agent_id not in self.incoming_lanes:
@@ -174,7 +166,7 @@ class SumoTrafficEnv(MultiAgentEnv):
         return reward_dict
 
     def close(self):
-        """Menutup koneksi Traci."""
+        """Menutup koneksi Traci"""
         if self.traci_connected:
             traci.close()
             self.traci_connected = False
