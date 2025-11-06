@@ -59,6 +59,6 @@
     <flow id="f_27" route="r_27" begin="0" end="3600" probability="0.03"/>
     <flow id="f_30" route="r_30" begin="0" end="3600" probability="0.04"/>
     <flow id="f_32" route="r_31" begin="0" end="3600" probability="0.04"/>
-    <flow id="f_34" route="r_32" begin="0" end="3600" probability="0.04"/>
+    <flow id="f_34" route="r_32" begin="0" end="3600" probability="0.03"/>
     <flow id="f_35" route="r_33" begin="0" end="3600" probability="0.04"/>
 </routes>
